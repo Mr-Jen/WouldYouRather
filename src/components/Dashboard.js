@@ -32,15 +32,27 @@ class Dashboard extends Component {
                         <Tab style={{width: 500, fontWeight: 'bold'}} label="Answered Questions" />
                         <Tab style={{width: 500, fontWeight: 'bold'}} label="Unanswered Questions" />
                     </Tabs>
-                    <div className='questions'>
-                        <ul className='dashboard-list'>
-                            {this.props.questionIds.map((id) => (
-                                <li key={id}>
-                                    <QuestionPreview id={id}/>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    {
+                        this.state.mode === 0
+                            ?   <div className='questions'>
+                                    <ul className='dashboard-list'>
+                                        {this.props.questionIds[0].map((id) => (
+                                            <li key={id}>
+                                                <QuestionPreview id={id}/>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            :   <div className='questions'>
+                                    <ul className='dashboard-list'>
+                                        {this.props.questionIds[1].map((id) => (
+                                            <li key={id}>
+                                                <QuestionPreview id={id}/>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                    }
                 </Paper>    
             </div>
         )
@@ -50,22 +62,27 @@ class Dashboard extends Component {
 function mapStateToProps ({ authedUser, users, questions }){
     const user = users[authedUser] ? users[authedUser] : null
     const answers = user ? user.answers : null
-    const sortedQuestions = answers 
+    const answeredQuestions = answers 
+        ? Object.keys(questions)
+            .filter(questionId => (questionId in answers))
+        : null
+
+    const unansweredQuestions = answers 
         ? Object.keys(questions)
             .filter(questionId => !(questionId in answers))
         : null
 
-    console.log('Sorted Questions: ', sortedQuestions)
-
-    if(sortedQuestions){
+    if(answeredQuestions){
         return {
-            questionIds: sortedQuestions.sort((a,b) => questions[b].timestamp - questions[a].timestamp)
+            questionIds: [answeredQuestions.sort((a,b) => questions[b].timestamp - questions[a].timestamp),
+                            unansweredQuestions.sort((a,b) => questions[b].timestamp - questions[a].timestamp)
+                        ]
         }
     }
     else {
         return {
-            questionIds: Object.keys(questions)
-                            .sort((a,b) => questions[b].timestamp - questions[a].timestamp)
+            questionIds: [Object.keys(questions)
+                            .sort((a,b) => questions[b].timestamp - questions[a].timestamp)]
         }
     }
 }

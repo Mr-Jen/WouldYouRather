@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 
+import { connect } from 'react-redux'
+
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -16,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Nav (props) {
+const Nav = props => {
     const classes = useStyles();
 
     return (
@@ -38,9 +40,19 @@ export default function Nav (props) {
                             Leaderboard
                         </NavLink>
                     </li>
-                    <h3 style={{marginLeft: 1300}}>Logged in as: </h3>
+                    <h3 style={{marginLeft: 1100}}>
+                        {props.authedUser && `Logged in as: ${props.authedUser}`}
+                    </h3>
             </Toolbar>
             </AppBar>
         </div>
     )
 } 
+
+function mapStateToProps ({authedUser}){
+    return {
+        authedUser
+    }
+}
+
+export default connect(mapStateToProps)(Nav)
