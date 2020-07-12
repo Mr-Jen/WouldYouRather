@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { handleInitialData } from '../actions/shared'
 import Dashboard from './Dashboard'
 import Nav from './Nav'
+import QPage from './QPage'
+import CreateQ from './CreateQ'
 
 class App extends Component {
   componentDidMount (){
@@ -22,6 +24,8 @@ class App extends Component {
               ? null
               : <div>
                   <Route path='/' exact component={Dashboard}/>
+                  <Route path='/question/:id' exact component={QPage}/>
+                  <Route path='/new' exact component={CreateQ}/>
                 </div>
             }
           </div>
@@ -31,4 +35,10 @@ class App extends Component {
   }
 }
 
-export default connect()(App)
+function mapStateToProps ({ authedUser}){
+  return {
+    loading: authedUser === null
+  }
+}
+
+export default connect(mapStateToProps)(App)

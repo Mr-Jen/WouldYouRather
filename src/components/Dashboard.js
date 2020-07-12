@@ -29,8 +29,8 @@ class Dashboard extends Component {
                         onChange={(e) => this.handleChange(e.target.value)}
                         aria-label="disabled tabs example"
                     >
-                        <Tab style={{width: 500, fontWeight: 'bold'}} label="Answered Questions" />
-                        <Tab style={{width: 500, fontWeight: 'bold'}} label="Unanswered Questions" />
+                        <Tab style={{width: 500, fontWeight: '750'}} label="Answered Questions" />
+                        <Tab style={{width: 500, fontWeight: '750'}} label="Unanswered Questions" />
                     </Tabs>
                     {
                         this.state.mode === 0

@@ -24,7 +24,7 @@ class QuestionPreview extends Component {
                         className='avatar'
                     />
                     <div className='question-info'>
-                        <h3>Would you rather...</h3>
+                        <h2>Would you rather...</h2>
                         <h5>...{optionOne.text}...</h5>
                     </div>
                 </Paper>
