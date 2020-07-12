@@ -34,21 +34,19 @@
 }
 
 .hr-left {    
-    border: 1px dotted;
+    border: 1px solid gray;
     width: 40%;
     margin-right: 90%;
     margin-bottom: -2%;
-    margin-top: 5%;    
-    background-color: rgb(153, 153, 153);
+    margin-top: 5%;
 }
 
 .hr-right {
-    border: 1px dotted;
+    border: 1px solid gray;
     width: 38%;
     margin-left: 50%;
     margin-top: -7.5%;
     margin-bottom: 30px;
-    background-color: rgb(153, 153, 153);
 }
 
 .text-field {

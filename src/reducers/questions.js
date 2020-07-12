@@ -7,6 +7,7 @@ export default function questions (state= {}, action){
                 ...state,
                 ...action.questions
             }
+
         case ADD_QUESTION:
             const { question } = action
             const id = question.id
@@ -15,6 +16,7 @@ export default function questions (state= {}, action){
                 ...state, 
                 [id] : question 
             }
+            
         default:
             return state
     }

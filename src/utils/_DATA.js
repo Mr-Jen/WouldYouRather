@@ -196,7 +196,7 @@ let questions = {
           }
         }
   
-        res()
+        res({users, questions})
       }, 500)
     })
   }

@@ -6,8 +6,27 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import '../styles/q-page.css'
+import { handleSaveAnswer } from '../actions/questions';
+
+const BorderLinearProgress = withStyles((theme) => ({
+    root: {
+      height: 20,
+      borderRadius: 5,
+    },
+    colorPrimary: {
+      backgroundColor: theme.palette.grey[theme.palette.type === 'light' ? 200 : 700],
+    },
+    bar: {
+      borderWidth: 3,
+      borderRadius: 5,
+      backgroundColor: 'green',
+    },
+}))(LinearProgress);
+  
 
 class QPage extends Component {
     state = {
@@ -29,17 +48,32 @@ class QPage extends Component {
         this.setState(() => ({
             answer: value
         }))
-        console.log(value)
     }
 
     handleSubmit = (e) => {
-        const answer= this.state.answer
-        console.log('The user chose: ', answer)
+        e.preventDefault()
+        const answer = this.state.answer
+        const { dispatch, authedUser, question } = this.props
+
+        dispatch(handleSaveAnswer({
+            qid: question.id,
+            answer,
+            authedUser
+        }))
     }
 
     render (){
-        const { authedUser, question, user, author, answer } = this.props
-        console.log('Answer: ', answer, 'Author: ', question.author)
+        const { question, user, author, answer } = this.props
+        const { optionOne, optionTwo } = question
+        const totalVotes = optionOne.votes.length + optionTwo.votes.length
+
+        const style_1 = answer === 'optionOne' ? 'q-page-answer-container' : 'q-page-not-answer-container'
+        const style_2 = answer === 'optionTwo' ? 'q-page-answer-container' : 'q-page-not-answer-container'
+
+        const style_avatar = answer ? 'q-page-answer-avatar-container' : 'q-page-question-avatar-container'
+
+        const optionOne_Perc = Math.round(((optionOne.votes.length/totalVotes)*100) * 100) / 100 
+        const optionTwo_Perc = Math.round(((optionTwo.votes.length/totalVotes)*100) * 100) / 100
 
         return (
             <div className='q-page-container'>
@@ -47,27 +81,54 @@ class QPage extends Component {
                     <div className='q-page-caption'>
                         <h3>{`${author} asks:`}</h3>
                     </div>
-                    <div className='q-page-avatar-container'>
+                    <div className={style_avatar}>
                         <img 
                             src={'https://tylermcginnis.com/would-you-rather/dan.jpg'}
                             alt={`Avatar of ${user.name}`}
                             className='q-page-question-avatar'
                         />
                     </div>
-                    <div className='q-page-question-info'>
-                        <h2>Would you rather...</h2>
-                        <div className='q-page-radio-form'>
-                            <FormControl component="fieldset">
-                                <RadioGroup aria-label="gender" name="gender1" value={this.state.answer} onChange={!answer && this.handleChange}>
-                                    <FormControlLabel className='q-page-single-radio' style={{fontFamily: 'bold'}} value="optionOne" control={<Radio />} label={question.optionOne.text} />
-                                    <FormControlLabel value="optionTwo" control={<Radio />} label={question.optionTwo.text} />
-                                </RadioGroup>
-                                <Button onClick={this.handleSubmit} style={{marginTop: 10}} variant="contained" color="primary">
-                                    Submit
-                                </Button>
-                            </FormControl>
+                    { !answer 
+                    ?   <div className='q-page-question-info'>
+                            <h2>Would you rather...</h2>
+                            <div className='q-page-radio-form'>
+                                <FormControl component="fieldset">
+                                    <RadioGroup aria-label="gender" name="gender1" value={this.state.answer} onChange={!answer && this.handleChange}>
+                                        <FormControlLabel className='q-page-single-radio' value="optionOne" control={<Radio />} label={optionOne.text} />
+                                        <FormControlLabel className='q-page-single-radio' value="optionTwo" control={<Radio />} label={optionTwo.text} />
+                                    </RadioGroup>
+                                    { !answer &&
+                                        <Button onClick={this.handleSubmit} variant="contained" color="primary">
+                                            Submit
+                                        </Button> 
+                                    }
+                                </FormControl>
+                            </div>
                         </div>
-                    </div>
+                    :   <div className='q-page-answer'>
+                            <div className='q-page-results-container'>
+                                <FormControl component="fieldset">
+                                    <h2>Results:</h2>
+                                    <div className={style_1}>
+                                        <div className='q-page-result'>
+                                            <h4>Would you rather {optionOne.text}</h4>
+                                            <BorderLinearProgress className='linear-progress' variant="determinate" value={optionOne_Perc} />
+                                            <h4>{optionOne_Perc}%</h4>
+                                            <h3 style={{color:'black'}}>{`${optionOne.votes.length} out of ${totalVotes} votes`}</h3>
+                                        </div>                                        
+                                    </div>
+                                    <div className={style_2}>                                       
+                                        <div className='q-page-result'>
+                                            <h4>Would you rather {optionTwo.text}</h4>
+                                            <BorderLinearProgress className='linear-progress' variant="determinate" value={optionTwo_Perc} />
+                                            <h4>{optionTwo_Perc}%</h4>
+                                            <h3 style={{color:'black'}}>{`${optionTwo.votes.length} out of ${totalVotes} votes`}</h3>
+                                        </div>                                        
+                                    </div>
+                                </FormControl>
+                            </div>
+                        </div>
+                    }
                 </Paper>
             </div>
         )
