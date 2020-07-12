@@ -27,7 +27,7 @@
 }
 
 .board-avatar-container {
-    border-right: 1px solid rgb(139, 131, 131);
+    border-right: 3px solid rgba(114, 91, 62, 0.493);
     width: 140px;
     height: 150px;
 }

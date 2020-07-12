@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
 import LoadingBar from 'react-redux-loading'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { handleInitialData } from '../actions/shared'
 import Dashboard from './Dashboard'
@@ -9,6 +9,7 @@ import Nav from './Nav'
 import QPage from './QPage'
 import CreateQ from './CreateQ'
 import Leaderboard from './Leaderboard';
+import Error from './Error'
 
 class App extends Component {
   componentDidMount (){
@@ -24,10 +25,14 @@ class App extends Component {
             {this.props.loading === true
               ? null
               : <div>
-                  <Route path='/' exact component={Dashboard}/>
-                  <Route path='/question/:id' exact component={QPage}/>
-                  <Route path='/new' exact component={CreateQ}/>
-                  <Route path='/leaderboard' exact component={Leaderboard}/>
+                  <Switch>
+                    <Route path='/' exact component={Dashboard}/>
+                    <Route path='/question/:id' exact component={QPage}/>
+                    <Route path='/new' exact component={CreateQ}/>
+                    <Route path='/leaderboard' exact component={Leaderboard}/>
+                    <Route component={Error}/> 
+                  </Switch>
+                  
                 </div>
             }
           </div>
