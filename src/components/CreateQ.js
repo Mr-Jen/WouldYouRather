@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
 
 import '../styles/create-q.css'
+import { handleAddQuestion } from '../actions/questions';
 
 class CreateQ extends Component {
     state = {
@@ -16,20 +17,34 @@ class CreateQ extends Component {
 
     handleChange = (e) => {
         e.preventDefault()
+
         const value = e.target.value
         const id = e.target.id
+
         this.setState((currentState) => ({
             optionOne : id === 'optionOne' ? value : currentState.optionOne,
             optionTwo : id === 'optionTwo' ? value : currentState.optionTwo
         }))
     }
 
-    handleSubmit = () => {
+    handleSubmit = (e) => {
+        e.preventDefault()
+
         const { optionOne, optionTwo } = this.state
-        console.log('The inputs: ', optionOne, optionTwo)
+        const { dispatch} = this.props
+
+        dispatch(handleAddQuestion(optionOne, optionTwo))
+
+        this.setState(() => ({
+            optionOne: '',
+            optionTwo: ''
+        }))
+
+        this.props.history.push('/')
     }
 
     render (){
+        const { optionOne, optionTwo} = this.state
         return (
             <div className='create-question-container'>
                 <Paper className='create-question' elevation={5}>
@@ -66,6 +81,7 @@ class CreateQ extends Component {
                                 className='form-button'
                                 variant="contained" 
                                 color="primary"
+                                disabled={optionOne === '' || optionTwo === ''}
                                 onClick={this.handleSubmit}>
                                 Create
                             </Button>
@@ -77,4 +93,4 @@ class CreateQ extends Component {
     }
 }
 
-export default connect()(CreateQ)
+export default withRouter(connect()(CreateQ))
