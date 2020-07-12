@@ -1,0 +1,106 @@
+.container-paper {
+    max-width: 1000px;
+    width: 540px;
+    height: 150%;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 10px;
+}
+
+.container-paper h1 {
+    text-align: center;
+    color: rgb(67, 2, 146);
+}
+
+.board-container {
+    max-width: 1000px;
+    width: 500px;
+    height: 100px;
+    margin: 0 auto;
+    margin-top: 5px;
+    padding: 10px;
+    margin-bottom: 5%;
+}
+
+.paper-content {
+    margin-top: -6%;;
+}
+
+.board-avatar-container {
+    border-right: 1px solid rgb(139, 131, 131);
+    width: 140px;
+    height: 150px;
+}
+
+.board-avatar {
+    height: 100px;
+    border-radius: 25px;
+    margin: 15% 5% 5% 8%;
+}
+
+.board-paper {
+    height: 150%;
+}
+
+.board-username {
+    display: table;
+    color: rgb(46, 7, 78);
+    margin-left: 35%;
+    margin-top: -28%;
+}
+
+.board-info {
+    margin-left: 35%;
+}
+
+.board-info hr {
+    width: 60%;
+    margin-right: 40%;
+    color: rgb(163, 163, 163);
+    margin: -2% 0 -2% 0;
+}
+
+.board-info h3 {
+    margin-left: 55%;
+    margin-top: -13.5%;
+    color: rgb(3, 114, 3);
+    font-weight: 800;
+}
+
+.board-total-container {
+    border-left: 1px solid gray;
+    height: 100px;
+    margin-left: 77%;
+    margin-top: -23%;
+    margin-right: 2%;
+}
+
+.board-total {
+    margin-left: 20%;
+    margin-right: 10%;
+    margin-top: -25%;
+    border: 1px solid gray;
+    border-radius: 10px;
+    height: 90%;
+}
+
+.board-total h4 {
+    text-align: center;
+    margin-top: 5%;
+    border-bottom: 1px solid black;
+}
+
+.board-total span {
+    height: 40px;
+    width: 40px;
+    color: white;
+    text-align: center;
+    margin: -10% 0 0 20%;
+    background-color: rgb(16, 180, 29);
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.board-total h2 {
+    margin-top: 15%;
+}

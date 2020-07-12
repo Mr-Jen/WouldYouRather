@@ -7,9 +7,9 @@ import '../styles/question-preview.css'
 
 class QuestionPreview extends Component {
     render (){
-        const { authedUser, question, user } = this.props
+        const { question, user } = this.props
         const id = question.id
-        const { optionOne, optionTwo } = question
+        const { optionOne } = question
         const { avatarURL, name } = user
 
         return (

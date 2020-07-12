@@ -8,6 +8,7 @@ import Dashboard from './Dashboard'
 import Nav from './Nav'
 import QPage from './QPage'
 import CreateQ from './CreateQ'
+import Leaderboard from './Leaderboard';
 
 class App extends Component {
   componentDidMount (){
@@ -26,6 +27,7 @@ class App extends Component {
                   <Route path='/' exact component={Dashboard}/>
                   <Route path='/question/:id' exact component={QPage}/>
                   <Route path='/new' exact component={CreateQ}/>
+                  <Route path='/leaderboard' exact component={Leaderboard}/>
                 </div>
             }
           </div>
