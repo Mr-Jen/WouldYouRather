@@ -40,9 +40,14 @@ const Nav = props => {
                             Leaderboard
                         </NavLink>
                     </li>
-                    <h3 style={{marginLeft: 1100}}>
+                    <h3 style={{marginLeft: 1000}}>
                         {props.authedUser && `Logged in as: ${props.authedUser}`}
                     </h3>
+                    <li style={{marginLeft: 200}}> 
+                        <NavLink to='/sign-in' activeClassName='active' style={{color: 'white'}}>
+                            Logout
+                        </NavLink>
+                    </li>
             </Toolbar>
             </AppBar>
         </div>

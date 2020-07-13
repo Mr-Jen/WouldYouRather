@@ -10,6 +10,7 @@ import QPage from './QPage'
 import CreateQ from './CreateQ'
 import Leaderboard from './Leaderboard';
 import Error from './Error'
+import SignIn from './SignIn'
 
 class App extends Component {
   componentDidMount (){
@@ -30,6 +31,7 @@ class App extends Component {
                     <Route path='/question/:id' exact component={QPage}/>
                     <Route path='/new' exact component={CreateQ}/>
                     <Route path='/leaderboard' exact component={Leaderboard}/>
+                    <Route path='/sign-in' exact component={SignIn}/>
                     <Route component={Error}/> 
                   </Switch>
                   

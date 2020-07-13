@@ -59,7 +59,6 @@ function mapStateToProps ({authedUser, users}, {id, place}){
         authedUser,
         place
     }
-
 }
 
 export default connect(mapStateToProps)(Board)
