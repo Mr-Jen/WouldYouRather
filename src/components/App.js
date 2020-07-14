@@ -13,9 +13,11 @@ import Error from './Error'
 import SignIn from './SignIn'
 
 class App extends Component {
+
   componentDidMount (){
     this.props.dispatch(handleInitialData())
   }
+
   render() {
     return (
       <Router>
@@ -24,17 +26,20 @@ class App extends Component {
           <div>
             <Nav info={this.props}/>
             {this.props.loading === true
-              ? null
+              ? <p>Loading</p>
               : <div>
-                  <Switch>
-                    <Route path='/' exact component={Dashboard}/>
-                    <Route path='/question/:id' exact component={QPage}/>
-                    <Route path='/new' exact component={CreateQ}/>
-                    <Route path='/leaderboard' exact component={Leaderboard}/>
-                    <Route path='/sign-in' exact component={SignIn}/>
-                    <Route component={Error}/> 
-                  </Switch>
-                  
+                {this.props.authedUser
+                  ? <Switch>
+                      <Route exact path='/'  component={Dashboard}/>
+                      <Route exact path='/question/:id' component={QPage}/>
+                      <Route exact path='/add'  component={CreateQ}/>
+                      <Route exact path='/leaderboard'  component={Leaderboard}/> 
+                      <Route component={Error}/>
+                    </Switch>
+                  : <div>
+                      <Route path='*' component={SignIn}/>
+                    </div>
+                }                  
                 </div>
             }
           </div>
@@ -46,7 +51,8 @@ class App extends Component {
 
 function mapStateToProps ({ authedUser}){
   return {
-    loading: authedUser === null
+    loading: false,
+    authedUser
   }
 }
 

@@ -21,7 +21,8 @@
 }
 
 .select-form {
-    width: 450px;
+    width: 450px;    
+    max-height: 100px;
 }
 
 .select-form Label {
@@ -31,4 +32,9 @@
 
 .select-menu MenuItem {
     text-align: center;
+}
+
+.select-name {
+    margin-left: 5%;
+    color: rgb(76, 26, 99);
 }

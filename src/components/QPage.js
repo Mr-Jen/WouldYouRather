@@ -85,12 +85,12 @@ class QPage extends Component {
                 ?  <div className='q-page-container'>
                         <Paper className='q-page-question-preview' elevation={5}>
                             <div className='q-page-caption'>
-                                <h3>{`${author} asks:`}</h3>
+                                <h3>{`${author.name} asks:`}</h3>
                             </div>
                             <div className={style_avatar}>
                                 <img 
-                                    src={'https://tylermcginnis.com/would-you-rather/dan.jpg'}
-                                    alt={`Avatar of ${user.name}`}
+                                    src={author.avatarURL}
+                                    alt={`Avatar of ${author.name}`}
                                     className='q-page-question-avatar'
                                 />
                             </div>
@@ -149,7 +149,7 @@ function mapStateToProps ({authedUser, questions, users}, props){
     const question = questions[id]
     const user = users[authedUser]
     const answer = (user && question) && id in user.answers ? user.answers[id] : null
-    const author = (user && question) ? users[question.author].name : null
+    const author = (user && question) ? users[question.author] : null
 
     return {
         id,

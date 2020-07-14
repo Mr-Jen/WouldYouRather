@@ -6,7 +6,7 @@ import '../styles/leaderboard.css'
 
 class Board extends Component {
     render (){
-        const { user, answeredScore, createdScore, authedUser, place } = this.props
+        const { user, answeredScore, createdScore, place } = this.props
 
         return (
             <div className='board-container'>
@@ -14,7 +14,7 @@ class Board extends Component {
                     <div className='paper-content-container'>
                         <div className='board-avatar-container'>
                             <img 
-                                src={'https://tylermcginnis.com/would-you-rather/dan.jpg'}
+                                src={user.avatarURL}
                                 alt={`Avatar of ${user.name}`}
                                 className='board-avatar'
                             />

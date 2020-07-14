@@ -1,10 +1,11 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 
 import { connect } from 'react-redux'
+import { setAuthedUser } from '../actions/authedUser'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,6 +22,15 @@ const useStyles = makeStyles((theme) => ({
 const Nav = props => {
     const classes = useStyles();
 
+    function handleClick (e){
+        e.preventDefault()
+        const { dispatch} = props
+
+        dispatch(setAuthedUser(null))
+
+        props.history.push('/sign-in')
+    }
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -31,7 +41,7 @@ const Nav = props => {
                         </NavLink>
                     </li>
                     <li style={{marginRight: 10}}> 
-                        <NavLink to='/new' activeClassName='active' style={{color: 'white'}}>
+                        <NavLink to='/add' activeClassName='active' style={{color: 'white'}}>
                             Add Question
                         </NavLink>
                     </li>
@@ -41,23 +51,32 @@ const Nav = props => {
                         </NavLink>
                     </li>
                     <h3 style={{marginLeft: 1000}}>
-                        {props.authedUser && `Logged in as: ${props.authedUser}`}
+                        {props.authedUser && `Logged in as: ${props.users[props.authedUser].name}`}
                     </h3>
-                    <li style={{marginLeft: 200}}> 
-                        <NavLink to='/sign-in' activeClassName='active' style={{color: 'white'}}>
-                            Logout
-                        </NavLink>
-                    </li>
+                    {
+                        props.authedUser 
+                        ?   <li style={{marginLeft: 200}}> 
+                                <NavLink to='/sign-in' onClick={handleClick} activeClassName='active' style={{color: 'white'}}>
+                                    Logout
+                                </NavLink>
+                            </li>
+                        :   <li style={{marginLeft: 200}}> 
+                                <NavLink to='/sign-in' activeClassName='active' style={{color: 'white'}}>
+                                    Log In
+                                </NavLink>
+                            </li>
+                    }
             </Toolbar>
             </AppBar>
         </div>
     )
 } 
 
-function mapStateToProps ({authedUser}){
+function mapStateToProps ({authedUser, users}){
     return {
-        authedUser
+        authedUser,
+        users
     }
 }
 
-export default connect(mapStateToProps)(Nav)
+export default withRouter(connect(mapStateToProps)(Nav))

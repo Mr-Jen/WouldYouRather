@@ -9,7 +9,7 @@ import QuestionPreview from './QuestionPreview'
 
 class Dashboard extends Component {
     state = {
-        mode: 0
+        mode: 1
     }
 
     handleChange = () => {
@@ -82,7 +82,8 @@ function mapStateToProps ({ authedUser, users, questions }){
     else {
         return {
             questionIds: [Object.keys(questions)
-                            .sort((a,b) => questions[b].timestamp - questions[a].timestamp)]
+                            .sort((a,b) => questions[b].timestamp - questions[a].timestamp)
+                        ]
         }
     }
 }

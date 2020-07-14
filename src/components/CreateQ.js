@@ -43,7 +43,7 @@ class CreateQ extends Component {
         this.props.history.push('/')
     }
 
-    render (){
+    render (){        
         const { optionOne, optionTwo} = this.state
         return (
             <div className='create-question-container'>

@@ -19,7 +19,7 @@ class QuestionPreview extends Component {
                         <h3>{`${name} asks:`}</h3>
                     </div>
                     <img 
-                        src={'https://tylermcginnis.com/would-you-rather/dan.jpg'}
+                        src={avatarURL}
                         alt={`Avatar of ${name}`}
                         className='avatar'
                     />

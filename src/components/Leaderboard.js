@@ -2,11 +2,16 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Paper from '@material-ui/core/Paper';
 import '../styles/dashboard.css'
+import { Redirect } from 'react-router-dom'
 
 import Board from './Board';
 
 class Leaderboard extends Component {
     render (){
+        const { authedUser } = this.props
+        if (!authedUser){
+            return <Redirect to='/sign-in'/>
+        }
         return (
             <div>
                 <Paper className='container-paper' square elevation={3}>

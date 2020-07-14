@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import Paper from '@material-ui/core/Paper'
 import Select from '@material-ui/core/Select'
@@ -8,20 +9,20 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import '../styles/sign-in.css'
+import { setAuthedUser } from '../actions/authedUser';
 
 class SignIn extends Component {
-    state = {
-        userId : ''
-    }
 
     handleChange = (e) => {
         e.preventDefault()
-        const userId = e.target
-        console.log('USERID', userId)
-        this.setState(() => ({
-            state: userId
-        }))
+        const id = e.target.value
+        const { dispatch} = this.props
+
+        dispatch(setAuthedUser(id))
+
+        this.props.history.push('/')
     }
+
 
     render (){
         const { users } = this.props
@@ -39,25 +40,22 @@ class SignIn extends Component {
                             <Select
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
-                                value={this.state.userId}
                                 onChange={this.handleChange}
                                 label="choose-user"
                             >
-                                {Object.keys(users).map(uId => (  
-                                    <div key={uId}className='select-menu'>
+                                {Object.keys(users).map(uId => (                             
+                                    <MenuItem key={uId} value={uId}>
                                         <img 
-                                            src={'https://tylermcginnis.com/would-you-rather/dan.jpg'}
-                                            alt={`Avatar of me`}
+                                            src={users[uId].avatarURL}
+                                            alt={`Avatar of ${users[uId].name}`}
                                             className='signin-avatar'
-                                        />                                              
-                                        <MenuItem value={30}>{users[uId].name}</MenuItem>
-                                    </div>             
+                                        /> 
+                                        <h4 className='select-name'>{users[uId].name}</h4>
+                                    </MenuItem>           
                                 ))}
-                                <MenuItem value={20}>Hello</MenuItem>
                             </Select>
                         </FormControl>
                     </div>
-                    <p>{this.state.userId}</p>
                     <br></br>
                 </Paper>
             </div>
@@ -71,4 +69,4 @@ function mapStateToProps ({ users }){
     }
 }
 
-export default connect(mapStateToProps)(SignIn)
+export default withRouter(connect(mapStateToProps)(SignIn))
