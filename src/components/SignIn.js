@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 
 import Paper from '@material-ui/core/Paper'
 import Select from '@material-ui/core/Select'
@@ -19,13 +19,11 @@ class SignIn extends Component {
         const { dispatch} = this.props
 
         dispatch(setAuthedUser(id))
-
-        this.props.history.push('/')
     }
 
 
     render (){
-        const { users } = this.props
+        const { users, authedUser } = this.props
 
         return (
             <div className='signin-main-container'>
@@ -63,9 +61,10 @@ class SignIn extends Component {
     }
 }
 
-function mapStateToProps ({ users }){
+function mapStateToProps ({ users, authedUser }){
     return {
-        users
+        users,
+        authedUser
     }
 }
 

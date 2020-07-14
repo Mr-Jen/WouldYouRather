@@ -26,6 +26,7 @@ export function handleAddQuestion (optionOne, optionTwo){
             author: authedUser
         })
             .then((question) => dispatch(addQuestion(question)))
+            
             .then(() => dispatch(hideLoading()))
     }
 }
