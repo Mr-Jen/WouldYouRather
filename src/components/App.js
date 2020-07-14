@@ -33,7 +33,8 @@ class App extends Component {
                       <Route exact path='/'  component={Dashboard}/>
                       <Route exact path='/question/:id' component={QPage}/>
                       <Route exact path='/add'  component={CreateQ}/>
-                      <Route exact path='/leaderboard'  component={Leaderboard}/> 
+                      <Route exact path='/leaderboard' component={Leaderboard}/>
+                      <Route exact path='/sign-in' component={SignIn}/> 
                       <Route component={Error}/>
                     </Switch>
                   : <div>

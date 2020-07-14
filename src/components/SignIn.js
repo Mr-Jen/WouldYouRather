@@ -24,6 +24,9 @@ class SignIn extends Component {
 
     render (){
         const { users, authedUser } = this.props
+        if(authedUser){
+            return <Redirect to='/'/>
+        }
 
         return (
             <div className='signin-main-container'>
